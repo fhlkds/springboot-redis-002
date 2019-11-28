@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class SysUserServiceImpl implements ISysUserService {
 
+    //key:      {value}::{springCacheKeyGenreator}
     //业务场景所需  查询数据为null，不存缓存中
     @Override
     @Cacheable(value = "sysUser",keyGenerator = "springCacheKeyGenreator",unless = "#result==null")
