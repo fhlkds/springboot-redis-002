@@ -2,6 +2,7 @@ package com.fhlkd.mapper;
 
 import com.fhlkd.entity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.cache.annotation.CachePut;
 
 /**
  * <p>
@@ -14,5 +15,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 public interface SysUserMapper{
 
 
+    void saveUser(SysUser sysUser);
 
+    void updateUser(SysUser sysUser);
+
+    SysUser listById(Integer id);
+
+    void delUser(SysUser sysUser);
 }

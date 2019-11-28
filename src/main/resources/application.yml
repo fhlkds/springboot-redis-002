@@ -42,6 +42,4 @@ spring:
       cache-enabled: true
       id: 0
       log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  logging:
-    level:
-      root: info
+

@@ -3,11 +3,7 @@ package com.fhlkd.controller;
 
 import com.fhlkd.entity.SysUser;
 import com.fhlkd.service.ISysUserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -30,6 +26,19 @@ public class SysUserController {
     public SysUser listByid(@RequestParam Integer id){
         return sysUserService.listById(id);
 
+    }
+
+    @PostMapping("/saveUser")
+    public void saveUser(@RequestBody SysUser sysUser){
+        sysUserService.saveUser(sysUser);
+    }
+    @PostMapping("/updateUser")
+    public void updateUser(@RequestBody SysUser sysUser){
+        sysUserService.updateUser(sysUser);
+    }
+    @PostMapping("/delUser")
+    public void delUser(@RequestBody SysUser sysUser){
+        sysUserService.delUser(sysUser);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.fhlkd.config;
 
 
+import com.fhlkd.entity.SysUser;
 import com.fhlkd.mapper.SysUserMapper;
 import com.fhlkd.service.impl.SysUserServiceImpl;
 import org.springframework.boot.SpringBootConfiguration;
@@ -38,10 +39,19 @@ public class SpringCacheKeyGenreator implements KeyGenerator {
      */
     @Override
     public Object generate(Object o, Method method, Object... objects) {
-        if(o instanceof SysUserMapper)
+        if(o instanceof SysUserMapper) {
+            if(objects[0] instanceof SysUser){
+                SysUser sysUser = (SysUser)objects[0];
+                return "sysUser"+sysUser.getId();
+            }
+            return "sysUser" + objects[0].toString();
+        }
+        if(o instanceof SysUserServiceImpl){
+            if(objects[0] instanceof SysUser){
+                return "sysUser"+((SysUser)objects[0]).getId();
+            }
             return "sysUser"+objects[0].toString();
-        if(o instanceof SysUserServiceImpl)
-            return "sysUser"+objects[0].toString();
+        }
         /*if(o instanceof TestSysUserMapper)
             return "sysUser"+objects[0].toString();
         if(o instanceof TestUserServiceImpl)

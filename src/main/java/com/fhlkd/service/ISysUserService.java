@@ -15,4 +15,9 @@ public interface ISysUserService{
 
     public SysUser listById(Integer id);
 
+    SysUser saveUser(SysUser sysUser);
+
+    SysUser updateUser(SysUser sysUser);
+
+    void delUser(SysUser sysUser);
 }
