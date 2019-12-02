@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fhlkd.mapper.SysUserMapper">
+    <resultMap id="BaseResultMap" type="com.fhlkd.entity.SysUser">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+        <result column="real_name" jdbcType="VARCHAR" property="realName" />
+        <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+        <result column="mail" jdbcType="VARCHAR" property="mail" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="company_id" jdbcType="INTEGER" property="companyId" />
+        <result column="status" jdbcType="TINYINT" property="status" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="operator" jdbcType="VARCHAR" property="operator" />
+        <result column="operate_time" jdbcType="TIMESTAMP" property="operateTime" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="operate_ip" jdbcType="VARCHAR" property="operateIp" />
+    </resultMap>
     <sql id="Base_Column_List">
     id, user_name, nick_name, real_name, telephone, mail, password, company_id, status,
     remark, operator, operate_time, create_time, operate_ip
@@ -142,6 +158,50 @@
         where id = #{id,jdbcType=INTEGER}
 
     </update>
+    <update id="updateByCompanyId" parameterType="com.fhlkd.entity.SysUser">
+        update sys_user
+        <set>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null">
+                nick_name = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="realName != null">
+                real_name = #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="telephone != null">
+                telephone = #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="mail != null">
+                mail = #{mail,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="operator != null">
+                operator = #{operator,jdbcType=VARCHAR},
+            </if>
+            <if test="operateTime != null">
+                operate_time = #{operateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="operateIp != null">
+                operate_ip = #{operateIp,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where company_id = #{companyId,jdbcType=INTEGER}
+
+
+    </update>
     <delete id="delUser">
     delete from sys_user
     where id = #{id,jdbcType=INTEGER}
@@ -151,5 +211,25 @@
         <include refid="Base_Column_List" />
         from sys_user
         where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectList" resultMap="BaseResultMap" parameterType="com.fhlkd.entity.SysUser">
+        select
+        <include refid="Base_Column_List" />
+        from sys_user
+        <where>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName, jdbcType=VARCHAR}
+            </if>
+            <if test="nickName != null and nickName != '' ">
+                and nick_name = #{nickName, jdbcType=VARCHAR}
+            </if>
+            <if test="mail != null and mail != '' ">
+                and mail = #{mail, jdbcType=VARCHAR}
+            </if>
+            <if test="companyId != null">
+                and company_id = #{companyId, jdbcType=INTEGER}
+            </if>
+        </where>
+
     </select>
 </mapper>

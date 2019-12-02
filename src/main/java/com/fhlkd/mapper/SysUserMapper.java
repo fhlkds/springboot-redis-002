@@ -1,8 +1,8 @@
 package com.fhlkd.mapper;
 
 import com.fhlkd.entity.SysUser;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.springframework.cache.annotation.CachePut;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,9 +17,13 @@ public interface SysUserMapper{
 
     void saveUser(SysUser sysUser);
 
-    void updateUser(SysUser sysUser);
+    int updateUser(SysUser sysUser);
 
     SysUser listById(Integer id);
 
     void delUser(SysUser sysUser);
+
+    List<SysUser> selectList(SysUser sysUser);
+
+    void updateByCompanyId(SysUser sysUser);
 }

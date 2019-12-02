@@ -41,4 +41,9 @@ public class SysUserController {
         sysUserService.delUser(sysUser);
     }
 
+    @PostMapping("/updateByCompanyId")
+    public void updateByCompanyId(@RequestBody SysUser sysUser){
+        sysUserService.updateByCompanyId(sysUser);
+    }
+
 }
