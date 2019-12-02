@@ -25,6 +25,11 @@ public class MyCache {
     private CacheManager cacheManager;
 
     /**
+     * 缓存主键字段
+     */
+    private final String fieldKey = "id";
+
+    /**
      * 一个对象保存到指定缓存中
      * @param key   key值
      * @param o 缓存的对象
@@ -46,7 +51,7 @@ public class MyCache {
         int row = 0;
         for (Object t : objects){
             JSONObject jsonObject = JSONObject.fromObject(t);
-            String id = jsonObject.get("id").toString();
+            String id = jsonObject.get(this.fieldKey).toString();
             this.cachePutObject(keyPrefix+id,t);
             ++row;
         }
@@ -63,7 +68,7 @@ public class MyCache {
         Cache cache = cacheManager.getCache(serverName);
         for (Object t : objects){
             JSONObject jsonObject = JSONObject.fromObject(t);
-            String id = jsonObject.get("id").toString();
+            String id = jsonObject.get(this.fieldKey).toString();
             this.cacheEvictObject(keyPrefix+id);
             ++row;
         }
