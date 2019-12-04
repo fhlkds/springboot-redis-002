@@ -57,18 +57,21 @@ public class SpringCacheKeyGenreator implements KeyGenerator {
             key.append(CompanyCacheConstant.STORE_STAFF);
         ///
         ///
-        //参数对象转换为json 获取主键字段数据
-        JSONObject jsonObject = JSONObject.fromObject(objects);
-        String fieldKey = jsonObject.get(CompanyCacheConstant.FIELDKEY) == null ? null : jsonObject.get(CompanyCacheConstant.FIELDKEY).toString();
+        String fieldKey = null;
         //用于查询
         if(objects[0] instanceof Integer || objects[0] instanceof Long || objects[0] instanceof String){
             fieldKey = objects[0].toString();
+        }else{
+            //参数对象转换为json 获取主键字段数据
+            JSONObject jsonObject = JSONObject.fromObject(objects);
+            fieldKey = jsonObject.get(CompanyCacheConstant.FIELDKEY) == null ? null : jsonObject.get(CompanyCacheConstant.FIELDKEY).toString();
         }
         if (fieldKey == null) {
             key.append(NO_PARAM_KEY);
-            //throw new Throwable( "redis缓存出错，没有key");
+            throw new RuntimeException( "redis缓存出错，没有key");
+        }else {
+            key.append(fieldKey);
         }
-        key.append(fieldKey);
         return key.toString();
     }
 
