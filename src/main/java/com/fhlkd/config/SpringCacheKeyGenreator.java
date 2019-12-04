@@ -4,9 +4,11 @@ package com.fhlkd.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fhlkd.constant.CompanyCacheConstant;
 import com.fhlkd.entity.SysUser;
 import com.fhlkd.mapper.SysUserMapper;
 import com.fhlkd.service.impl.SysUserServiceImpl;
+import net.sf.json.JSONObject;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -38,6 +40,7 @@ public class SpringCacheKeyGenreator implements KeyGenerator {
 
     /**
      * 自定义主键生成策略根据不同对象生成不同主键
+     * 只用于保存 更新 删除  基本的参数使用
      * @param o
      * @param method
      * @param objects
@@ -45,24 +48,28 @@ public class SpringCacheKeyGenreator implements KeyGenerator {
      */
     @Override
     public Object generate(Object o, Method method, Object... objects) {
-        if(o instanceof SysUserMapper) {
-            if(objects[0] instanceof SysUser){
-                SysUser sysUser = (SysUser)objects[0];
-                return "sysUser"+sysUser.getId();
-            }
-            return "sysUser" + objects[0].toString();
+        StringBuilder key = new StringBuilder();
+        if (objects.length == 0) {
+            return key.append(NO_PARAM_KEY).toString();
         }
-        if(o instanceof SysUserServiceImpl){
-            if(objects[0] instanceof SysUser){
-                return "sysUser"+((SysUser)objects[0]).getId();
-            }
-            return "sysUser"+objects[0].toString();
+        //不同的业务不同的数据前缀
+        if(o instanceof SysUserServiceImpl)
+            key.append(CompanyCacheConstant.STORE_STAFF);
+        ///
+        ///
+        //参数对象转换为json 获取主键字段数据
+        JSONObject jsonObject = JSONObject.fromObject(objects);
+        String fieldKey = jsonObject.get(CompanyCacheConstant.FIELDKEY) == null ? null : jsonObject.get(CompanyCacheConstant.FIELDKEY).toString();
+        //用于查询
+        if(objects[0] instanceof Integer || objects[0] instanceof Long || objects[0] instanceof String){
+            fieldKey = objects[0].toString();
         }
-        /*if(o instanceof TestSysUserMapper)
-            return "sysUser"+objects[0].toString();
-        if(o instanceof TestUserServiceImpl)
-            return "sysUser"+objects[0].toString();*/
-        return null;
+        if (fieldKey == null) {
+            key.append(NO_PARAM_KEY);
+            //throw new Throwable( "redis缓存出错，没有key");
+        }
+        key.append(fieldKey);
+        return key.toString();
     }
 
     //CacheManager配置缓存 反参格式 前缀 过期时间

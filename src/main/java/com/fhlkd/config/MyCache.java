@@ -63,6 +63,7 @@ public class MyCache {
         cache.evict(key);
         return 1;
     }
+
     public int cacheEvictObjectList(String keyPrefix,List<Object> objects){
         int row = 0;
         Cache cache = cacheManager.getCache(serverName);

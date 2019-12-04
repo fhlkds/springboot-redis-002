@@ -17,7 +17,7 @@ public interface ISysUserService{
 
     SysUser saveUser(SysUser sysUser);
 
-    int updateUser(SysUser sysUser);
+    SysUser updateUser(SysUser sysUser);
 
     void delUser(SysUser sysUser);
 
