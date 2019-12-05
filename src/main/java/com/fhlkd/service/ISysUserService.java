@@ -20,6 +20,8 @@ public interface ISysUserService{
     SysUser updateUser(SysUser sysUser);
 
     void delUser(SysUser sysUser);
+    SysUser saveUsers(SysUser sysUser);
+
 
     void updateByCompanyId(SysUser sysUser);
 }

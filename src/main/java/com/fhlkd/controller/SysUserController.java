@@ -3,6 +3,7 @@ package com.fhlkd.controller;
 
 import com.fhlkd.entity.SysUser;
 import com.fhlkd.service.ISysUserService;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -17,6 +18,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/sys-user")
+@EnableAspectJAutoProxy(exposeProxy = true)
 public class SysUserController {
 
     @Resource

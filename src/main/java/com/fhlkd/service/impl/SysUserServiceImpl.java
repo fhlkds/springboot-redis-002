@@ -24,6 +24,8 @@ import java.util.List;
  *
  * @author hy.Yang
  * @since 2019-11-27
+ *                      注意
+ * 一个支持缓存的方法，在对象内被调用是不会触发缓存功能的
  */
 @Service
 @Slf4j
@@ -35,6 +37,12 @@ public class SysUserServiceImpl implements ISysUserService {
 
     @Resource
     private MyCache myCache;
+
+    /**
+     * 一个支持缓存的方法，在对象内被调用是不会触发缓存功能的
+     */
+    @Resource
+    private SysUserServiceImpl sysUserService;
 
 
 
@@ -50,15 +58,20 @@ public class SysUserServiceImpl implements ISysUserService {
     }
 
 
+
+    public SysUser saveUser(SysUser sysUser) {
+        //Cache cache = cacheManager.getCache("sysUser");
+        sysUserService.saveUsers(sysUser);
+        return sysUser;
+    }
     // TODO: 2019/12/2  生产者使用例子，保存保存对象到缓存
     /**
      *  说明：保存时mybatis需要添加属性   useGeneratedKeys="true" keyProperty="id"
      * @param sysUser
      * @return
      */
-    @Override
     @CachePut(keyGenerator = "springCacheKeyGenreator")
-    public SysUser saveUser(SysUser sysUser) {
+    public SysUser saveUsers(SysUser sysUser) {
         //Cache cache = cacheManager.getCache("sysUser");
         sysUserMapper.saveUser(sysUser);
         return sysUser;

@@ -13,7 +13,9 @@ import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
+import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -63,7 +65,7 @@ public class SpringCacheKeyGenreator implements KeyGenerator {
             fieldKey = objects[0].toString();
         }else{
             //参数对象转换为json 获取主键字段数据
-            JSONObject jsonObject = JSONObject.fromObject(objects);
+            JSONObject jsonObject = JSONObject.fromObject(objects[0]);
             fieldKey = jsonObject.get(CompanyCacheConstant.FIELDKEY) == null ? null : jsonObject.get(CompanyCacheConstant.FIELDKEY).toString();
         }
         if (fieldKey == null) {

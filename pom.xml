@@ -15,6 +15,8 @@
     <description>Demo project for Spring Boot</description>
 
     <properties>
+        <aspectj.version>1.6.12</aspectj.version>
+        <java.version>1.6</java.version>
         <java.version>1.8</java.version>
     </properties>
 
@@ -79,7 +81,42 @@
             <version>2.4</version>
             <classifier>jdk15</classifier>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-aspects -->
+    <!--    <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>5.2.1.RELEASE</version>
+        </dependency>
+-->
+<!--        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.6.11</version>
+        </dependency>-->
 
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.6.11</version>
+        </dependency>
+       <!-- <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>4.3.2.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-instrument</artifactId>
+        </dependency>-->
 
         <dependency>
             <groupId>org.freemarker</groupId>
