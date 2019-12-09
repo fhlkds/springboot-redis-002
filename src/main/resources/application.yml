@@ -1,5 +1,5 @@
 server:
-  port: 8088
+  port: 8089
 spring:
   redis:
     database: 0
@@ -20,9 +20,9 @@ spring:
     druid:
       filters: stat
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/test?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=true
+      url: jdbc:mysql://121.40.74.48:3306/company_service?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=true
       username: root
-      password:
+      password: yBxyVjMl3Cs1Ixf4
       initial-size: 1
       min-idle: 1
       max-active: 20
@@ -42,4 +42,9 @@ spring:
       cache-enabled: true
       id: 0
       log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
+#增加日志
+logging:
+  level:
+    org:
+      springframework:
+        cache: TRACE
